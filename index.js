@@ -136,11 +136,9 @@ async function run() {
 
     app.post("/adopted", verifyToken, async (req, res) => {
       const { userId, petId } = req.body;
-
       const pet = await prittycatsCollection.findOne({
         _id: new ObjectId(petId),
       });
-
       if (pet?.adoptionStatus === "closed" || pet?.adopted) {
         return res.status(400).send({
           message: "Pet is closed for adoption",
