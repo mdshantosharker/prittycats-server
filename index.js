@@ -199,7 +199,6 @@ async function run() {
     app.patch("/pets/:id", verifyToken, async (req, res) => {
       const { id } = req.params;
       const updateData = req.body;
-
       const result = await prittycatsCollection.updateOne(
         {
           _id: new ObjectId(id),
@@ -208,7 +207,6 @@ async function run() {
           $set: updateData,
         },
       );
-
       res.send(result);
     });
 
