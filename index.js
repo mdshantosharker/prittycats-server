@@ -54,11 +54,7 @@ async function run() {
     const prittycatsCollection = prittycatsDB.collection("pets");
     const adoptedCollection = prittycatsDB.collection("adopted");
 
-    app.get("/adopted/:petId", async (req, res) => {
-      const { petId } = req.params;
-      const result = await adoptedCollection.find({ petId }).toArray();
-      res.send(result);
-    });
+   
 
     app.get("/adopted/:petId/:userId", async (req, res) => {
       const { petId, userId } = req.params;
