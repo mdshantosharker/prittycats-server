@@ -227,14 +227,12 @@ async function run() {
           $options: "i",
         };
       }
-
       if (species) {
         const speciesArray = species.split(",");
         query.species = {
           $in: speciesArray,
         };
       }
-
       const result = await prittycatsCollection.find(query).toArray();
       res.send(result);
     });
