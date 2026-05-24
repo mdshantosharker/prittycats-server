@@ -70,21 +70,21 @@ async function run() {
       res.send(result);
     });
 
-    // app.delete("/adopted/:id", async (req, res) => {
-    //   const { id } = req.params;
-    //   const result = await adoptedCollection.deleteOne({
-    //     _id: new ObjectId(id),
-    //   });
-    //   res.send(result);
-    // });
+    app.delete("/adopted/:id", async (req, res) => {
+      const { id } = req.params;
+      const result = await adoptedCollection.deleteOne({
+        _id: new ObjectId(id),
+      });
+      res.send(result);
+    });
     
-    // app.delete("/pets/:id", async (req, res) => {
-    //   const { id } = req.params;
-    //   const result = await prittycatsCollection.deleteOne({
-    //     _id: new ObjectId(id),
-    //   });
-    //   res.send(result);
-    // });
+    app.delete("/pets/:id", async (req, res) => {
+      const { id } = req.params;
+      const result = await prittycatsCollection.deleteOne({
+        _id: new ObjectId(id),
+      });
+      res.send(result);
+    });
 
     app.patch("/adopted/:id", async (req, res) => {
       const { id } = req.params;
