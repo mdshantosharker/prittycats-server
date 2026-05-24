@@ -54,7 +54,11 @@ async function run() {
     const prittycatsCollection = prittycatsDB.collection("pets");
     const adoptedCollection = prittycatsDB.collection("adopted");
 
-   
+    app.get("/adopted/:petId", async (req, res) => {
+      const { petId } = req.params;
+      const result = await adoptedCollection.find({ petId }).toArray();
+      res.send(result);
+    });
 
     app.get("/adopted/:petId/:userId", async (req, res) => {
       const { petId, userId } = req.params;
@@ -66,21 +70,21 @@ async function run() {
       res.send(result);
     });
 
-    app.delete("/adopted/:id", async (req, res) => {
-      const { id } = req.params;
-      const result = await adoptedCollection.deleteOne({
-        _id: new ObjectId(id),
-      });
-      res.send(result);
-    });
+    // app.delete("/adopted/:id", async (req, res) => {
+    //   const { id } = req.params;
+    //   const result = await adoptedCollection.deleteOne({
+    //     _id: new ObjectId(id),
+    //   });
+    //   res.send(result);
+    // });
     
-    app.delete("/pets/:id", async (req, res) => {
-      const { id } = req.params;
-      const result = await prittycatsCollection.deleteOne({
-        _id: new ObjectId(id),
-      });
-      res.send(result);
-    });
+    // app.delete("/pets/:id", async (req, res) => {
+    //   const { id } = req.params;
+    //   const result = await prittycatsCollection.deleteOne({
+    //     _id: new ObjectId(id),
+    //   });
+    //   res.send(result);
+    // });
 
     app.patch("/adopted/:id", async (req, res) => {
       const { id } = req.params;
