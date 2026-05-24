@@ -19,7 +19,9 @@ const client = new MongoClient(uri, {
   },
 });
 
-const JWKS = createRemoteJWKSet(new URL(`process.env.CLIENT_URL/api/auth/jwks`));
+const JWKS = createRemoteJWKSet(
+  new URL(`process.env.CLIENT_URL/api/auth/jwks`),
+);
 
 const verifyToken = async (req, res, next) => {
   const authHeader = req?.headers.authorization;
@@ -77,7 +79,7 @@ async function run() {
       });
       res.send(result);
     });
-    
+
     app.delete("/pets/:id", async (req, res) => {
       const { id } = req.params;
       const result = await prittycatsCollection.deleteOne({
@@ -165,9 +167,7 @@ async function run() {
 
     app.get("/adopted", async (req, res) => {
       const { ownerEmail, userId } = req.query;
-
       let query = {};
-
       if (ownerEmail) {
         query.ownerEmail = ownerEmail;
       }
@@ -177,7 +177,6 @@ async function run() {
       }
 
       const result = await adoptedCollection.find(query).toArray();
-
       res.send(result);
     });
 
