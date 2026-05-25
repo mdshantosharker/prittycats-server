@@ -211,16 +211,8 @@ async function run() {
     });
 
     app.get("/pets", async (req, res) => {
-      const result = await prittycatsCollection.find().toArray();
-      res.send(result);
-    });
-    app.get("/my-pets", verifyToken, async (req, res) => {
-      const { search = "", species, ownerEmail } = req.query;
+      const { search = "", species } = req.query;
       const query = {};
-
-      if (ownerEmail) {
-        query.ownerEmail = ownerEmail;
-      }
       if (search) {
         query.name = {
           $regex: search,
@@ -232,6 +224,16 @@ async function run() {
         query.species = {
           $in: speciesArray,
         };
+      }
+      const result = await prittycatsCollection.find(query).toArray();
+      res.send(result);
+    });
+
+    app.get("/my-pets", verifyToken, async (req, res) => {
+      const { search = "", species, ownerEmail } = req.query;
+      const query = {};
+      if (ownerEmail) {
+        query.ownerEmail = ownerEmail;
       }
       const result = await prittycatsCollection.find(query).toArray();
       res.send(result);
